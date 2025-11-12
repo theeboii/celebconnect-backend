@@ -1,0 +1,13 @@
+require('dotenv').config();
+const express = require('express');
+const cors = require('cors');
+const app = express();
+const port = process.env.PORT || 4000;
+app.use(cors());
+app.use(express.json());
+app.get('/health', (req, res) => res.json({ ok: true, now: new Date() }));
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/celebrities', require('./routes/celebrities'));
+app.use('/api/events', require('./routes/events'));
+app.use('/api/bookings', require('./routes/bookings'));
+app.listen(port, () => console.log(`Backend up on ${port}`));
